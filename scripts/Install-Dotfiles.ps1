@@ -174,7 +174,7 @@ Initialize-Git
 Format-DevDrive
 Get-Repository
 Install-WinGetPackages
-#Install-Fonts
+Install-Fonts
 Install-PoshGit
 Install-TheFucker
 #Install-AzPowerShell
