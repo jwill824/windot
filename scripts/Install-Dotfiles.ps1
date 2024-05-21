@@ -8,6 +8,10 @@ $RepoRoot = $null
 function Initialize-Git() {
     Write-Host 'Initializing Git...'
     winget install --exact --id Git.Git --source winget
+
+    # Reload the session path
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+
     git config --global core.autocrlf true
     git config --global init.defaultBranch main
     git config --global push.autoSetupRemote true
