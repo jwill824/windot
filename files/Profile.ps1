@@ -93,5 +93,5 @@ function Get-Path() {
 
 # Aliases
 Set-Alias -Name code -Value code-insiders
-Set-Alias -Name sjh -Value Set-JavaHome
-Set-Alias -Name rsjh -Value Reset-JavaHome
+# Set-Alias -Name sjh -Value Set-JavaHome
+# Set-Alias -Name rsjh -Value Reset-JavaHome

@@ -8,12 +8,6 @@
                     "PackageIdentifier": "Docker.DockerDesktop"
                 },
                 {
-                    "PackageIdentifier": "CoreyButler.NVMforWindows"
-                },
-                {
-                    "PackageIdentifier": "Neovim.Neovim"
-                },
-                {
                     "PackageIdentifier": "Hashicorp.Terraform"
                 },
                 {

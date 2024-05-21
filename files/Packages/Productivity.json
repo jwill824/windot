@@ -14,10 +14,10 @@
                     "PackageIdentifier": "Microsoft.BingWallpaper"
                 },
                 {
-                    "PackageIdentifier": "PaulWoolcock.SyncOutlookandGooglecalendars"
+                    "PackageIdentifier": "SlackTechnologies.Slack"
                 },
                 {
-                    "PackageIdentifier": "SlackTechnologies.Slack"
+                    "PackageIdentifier": "Microsoft.Teams"
                 },
                 {
                     "PackageIdentifier": "Zoom.Zoom"

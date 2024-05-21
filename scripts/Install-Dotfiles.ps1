@@ -139,31 +139,31 @@ function Set-EnvironmentVariables() {
     [System.Environment]::SetEnvironmentVariable('DEVDRIVE', "$($global:DevDriveLetter):", 'Machine')
 
     [System.Environment]::SetEnvironmentVariable('REPOS_ROOT', "$($global:DevDriveLetter):\Source\Repos", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('REPOS_VF', "$($global:DevDriveLetter):\Source\Repos\VictorFrye", 'Machine')
+    [System.Environment]::SetEnvironmentVariable('REPOS_VF', "$($global:DevDriveLetter):\Source\Repos\$($MyName -replace " ","")", 'Machine')
 
-    [System.Environment]::SetEnvironmentVariable('PACKAGES_ROOT', "$($global:DevDriveLetter):\Packages", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('NPM_CONFIG_CACHE', "$($global:DevDriveLetter):\Packages\.npm", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('NUGET_PACKAGES', "$($global:DevDriveLetter):\Packages\.nuget", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('PIP_CACHE_DIR', "$($global:DevDriveLetter):\Packages\.pip", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('MAVEN_OPTS', "-Dmaven.repo.local=$($global:DevDriveLetter):\Packages\.maven $env:MAVEN_OPTS", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('PACKAGES_ROOT', "$($global:DevDriveLetter):\Packages", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('NPM_CONFIG_CACHE', "$($global:DevDriveLetter):\Packages\.npm", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('NUGET_PACKAGES', "$($global:DevDriveLetter):\Packages\.nuget", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('PIP_CACHE_DIR', "$($global:DevDriveLetter):\Packages\.pip", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('MAVEN_OPTS', "-Dmaven.repo.local=$($global:DevDriveLetter):\Packages\.maven $env:MAVEN_OPTS", 'Machine')
 
-    [System.Environment]::SetEnvironmentVariable('DOTNET_ROOT', "$env:PROGRAMFILES\dotnet", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;%DOTNET_ROOT%", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('DOTNET_ENVIRONMENT', "Development", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('ASPNETCORE_ENVIRONMENT', 'Development', 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('DOTNET_ROOT', "$env:PROGRAMFILES\dotnet", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;%DOTNET_ROOT%", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('DOTNET_ENVIRONMENT', "Development", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('ASPNETCORE_ENVIRONMENT', 'Development', 'Machine')
 
-    [System.Environment]::SetEnvironmentVariable('NVIM_ROOT', "$env:PROGRAMFILES\Neovim", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;%NVIM_ROOT_%\bin", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('NVIM_ROOT', "$env:PROGRAMFILES\Neovim", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;%NVIM_ROOT_%\bin", 'Machine')
 
-    $MsftJavaHome = Join-Path $env:ProgramFiles 'Microsoft'
-    $Java11 = Get-ChildItem -Path $MsftJavaHome -Filter 'jdk-11*' -Name
-    $Java17 = Get-ChildItem -Path $MsftJavaHome -Filter 'jdk-17*' -Name
-    $Java21 = Get-ChildItem -Path $MsftJavaHome -Filter 'jdk-21*' -Name
-    [System.Environment]::SetEnvironmentVariable('JDK_11_HOME', "$MsftJavaHome\$Java11\", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('JDK_17_HOME', "$MsftJavaHome\$Java17\", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('JDK_21_HOME', "$MsftJavaHome\$Java21\", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('JAVA_HOME', '%JDK_21_HOME%', 'Machine')
-    [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;%JAVA_HOME%", 'Machine')
+    # $MsftJavaHome = Join-Path $env:ProgramFiles 'Microsoft'
+    # $Java11 = Get-ChildItem -Path $MsftJavaHome -Filter 'jdk-11*' -Name
+    # $Java17 = Get-ChildItem -Path $MsftJavaHome -Filter 'jdk-17*' -Name
+    # $Java21 = Get-ChildItem -Path $MsftJavaHome -Filter 'jdk-21*' -Name
+    # [System.Environment]::SetEnvironmentVariable('JDK_11_HOME', "$MsftJavaHome\$Java11\", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('JDK_17_HOME', "$MsftJavaHome\$Java17\", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('JDK_21_HOME', "$MsftJavaHome\$Java21\", 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('JAVA_HOME', '%JDK_21_HOME%', 'Machine')
+    # [System.Environment]::SetEnvironmentVariable('PATH', "$env:PATH;%JAVA_HOME%", 'Machine')
 
     Write-Host 'Done. System environment variables have been set.'
 }
@@ -174,10 +174,10 @@ Initialize-Git
 Format-DevDrive
 Get-Repository
 Install-WinGetPackages
-Install-Fonts
+#Install-Fonts
 Install-PoshGit
 Install-TheFucker
-Install-AzPowerShell
+#Install-AzPowerShell
 Set-PowerShellProfile
 Set-EnvironmentVariables
 
