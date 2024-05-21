@@ -118,14 +118,14 @@ function Set-PowerShellProfile() {
     Write-Host 'Done. PowerShell profile has been set.'
 }
 
-function Set-Terminal() {
+function Set-TerminalProfile() {
     Write-Host 'Setting up Terminal profile...'
 
     $NewProfile = Join-Path $global:RepoRoot '\files\Profiles\Hyper\.hyper.js'
     $HyperDataDir = "C:\Users\$($MyName -replace " ","")\AppData\Roaming\Hyper"
 
     if (!(Test-Path -Path HyperDataDir)) {
-        Copy-Item -Path NewProfile -Destination $HyperDataDir
+        Copy-Item -Path $NewProfile -Destination $HyperDataDir
     }
 
     Write-Host 'Done. Terminal profile has been set.'
@@ -176,6 +176,7 @@ Install-Fonts
 Install-PoshGit
 Install-TheFucker
 Set-PowerShellProfile
+Set-TerminalProfile
 Set-EnvironmentVariables
 
 Write-Host 'Complete!! Dotfiles installed successfully.' -ForegroundColor Green
