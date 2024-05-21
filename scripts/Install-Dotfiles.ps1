@@ -136,15 +136,21 @@ function Set-EnvironmentVariables() {
 
 Write-Host "Starting installation of my dotfiles for $MyNameWithoutWhitespace..."
 
-Initialize-Git
-Format-DevDrive
-Get-Repository
-Install-WinGetPackages
-Install-Fonts
-Install-PoshGit
-Install-TheFucker
-Set-PowerShellProfile
-Set-TerminalProfile
-Set-EnvironmentVariables
+try {
+    Initialize-Git
+    Format-DevDrive
+    Get-Repository
+    Install-WinGetPackages
+    Install-Fonts
+    Install-PoshGit
+    Install-TheFucker
+    Set-PowerShellProfile
+    Set-TerminalProfile
+    Set-EnvironmentVariables
+}
+catch {
+    Write-Host "An error occurred:"
+    Write-Host $_.ScriptStackTrace
+}
 
 Write-Host 'Complete!! Dotfiles installed successfully.' -ForegroundColor Green
