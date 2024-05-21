@@ -1,15 +1,6 @@
-Param(
-    [Parameter(Mandatory = $true)]
-    [string]
-    $MyName = "Jeff Williams",
-    [Parameter(Mandatory = $true)]
-    [string]
-    $MyEmail = "jeffwilliams824@gmail.com",
-    [Parameter(Mandatory = $true)]
-    [string]
-    $GitHubUser = "jwill824"
-)
-
+$MyName = "Jeff Williams"
+$MyEmail = "jeffwilliams824@gmail.com"
+$MyGitHubUser = "jwill824"
 $DevDriveLetter = $null
 $RepoRoot = $null
 
@@ -61,7 +52,7 @@ function Get-Repository() {
     git config user.name $MyName
     git config user.email $MyEmail
 
-    git clone https://github.com/$($GitHubUser)/windot $global:RepoRoot
+    git clone https://github.com/$($MyGitHubUser)/windot $global:RepoRoot
     Push-Location $global:RepoRoot
 
     Write-Host "Done. Dotfiles repository has been cloned to $global:RepoRoot."
