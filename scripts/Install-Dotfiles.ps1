@@ -134,7 +134,7 @@ function Set-EnvironmentVariables() {
     Write-Host 'Done. System environment variables have been set.'
 }
 
-Write-Host 'Starting installation of my dotfiles...'
+Write-Host "Starting installation of my dotfiles for $MyNameWithoutWhitespace..."
 
 Initialize-Git
 Format-DevDrive
