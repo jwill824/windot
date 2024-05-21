@@ -77,5 +77,5 @@ This repository is a partially automated set up of local machine configuration o
 
     ``` pwsh
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
-    Invoke-RestMethod -Uri 'https://raw.githubusercontent.com/victorfrye/dotfiles/main/scripts/Install-Dotfiles.ps1' | Invoke-Expression
+    Invoke-RestMethod -Uri 'https://raw.githubusercontent.com/jwill824/windot/main/scripts/Install-Dotfiles.ps1' | Invoke-Expression
     ```

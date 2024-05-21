@@ -1,13 +1,13 @@
 Param(
     [Parameter(Mandatory = $true)]
     [string]
-    $MyName,
-    [Parameter(Mandatory = $true)]
-    [bool]
-    $MyEmail = $true,
+    $MyName = "Jeff Williams",
     [Parameter(Mandatory = $true)]
     [string]
-    $GitHubUser
+    $MyEmail = "jeffwilliams824@gmail.com",
+    [Parameter(Mandatory = $true)]
+    [string]
+    $GitHubUser = "jwill824"
 )
 
 $DevDriveLetter = $null
@@ -15,15 +15,10 @@ $RepoRoot = $null
 
 function Initialize-Git() {
     Write-Host 'Initializing Git...'
-
     winget install --exact --id Git.Git --source winget
-
-    git config --global user.name $MyName
-    git config --global user.email $MyEmail
     git config --global core.autocrlf true
     git config --global init.defaultBranch main
     git config --global push.autoSetupRemote true
-
     Write-Host 'Done. Git has been initialized.'
 }
 
@@ -62,6 +57,9 @@ function Get-Repository() {
         Write-Host 'Done. Existing dotfiles repository has been updated with the latest sources.'
         return
     }
+
+    git config user.name $MyName
+    git config user.email $MyEmail
 
     git clone https://github.com/$($GitHubUser)/windot $global:RepoRoot
     Push-Location $global:RepoRoot
@@ -106,31 +104,31 @@ function Install-TheFucker() {
     Write-Host 'Done. TheFuck has been installed.'
 }
 
-function Install-AzPowerShell() {
-    Write-Host 'Installing Azure PowerShell...'
-
-    if (Get-Module -Name Az -ListAvailable) {
-        Write-Host 'Azure PowerShell is already installed. Updating to latest...'
-        Update-Module -Name Az -Force
-        Write-Host 'Done. Azure PowerShell updated to latest.'
-        return
-    }
-
-    Install-Module -Name Az -Repository PSGallery -Force
-    Write-Host 'Done. Azure PowerShell has been installed.'
-}
-
 function Set-PowerShellProfile() {
     Write-Host 'Setting PowerShell profile...'
-
-    $NewProfile = Join-Path $global:RepoRoot '\files\Profile.ps1'
 
     if (!(Test-Path -Path $PROFILE.CurrentUserAllHosts)) {
         New-Item -ItemType File -Path $PROFILE.CurrentUserAllHosts -Force
     }
+
+    $NewProfile = Join-Path $global:RepoRoot '\files\Profiles\PowerShell\Profile.ps1'
+
     Get-Content $NewProfile | Set-Content $PROFILE.CurrentUserAllHosts
 
     Write-Host 'Done. PowerShell profile has been set.'
+}
+
+function Set-Terminal() {
+    Write-Host 'Setting up Terminal profile...'
+
+    $NewProfile = Join-Path $global:RepoRoot '\files\Profiles\Hyper\.hyper.js'
+    $HyperDataDir = "C:\Users\$($MyName -replace " ","")\AppData\Roaming\Hyper"
+
+    if (!(Test-Path -Path HyperDataDir)) {
+        Copy-Item -Path NewProfile -Destination $HyperDataDir
+    }
+
+    Write-Host 'Done. Terminal profile has been set.'
 }
 
 function Set-EnvironmentVariables() {
@@ -139,7 +137,7 @@ function Set-EnvironmentVariables() {
     [System.Environment]::SetEnvironmentVariable('DEVDRIVE', "$($global:DevDriveLetter):", 'Machine')
 
     [System.Environment]::SetEnvironmentVariable('REPOS_ROOT', "$($global:DevDriveLetter):\Source\Repos", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('REPOS_VF', "$($global:DevDriveLetter):\Source\Repos\$($MyName -replace " ","")", 'Machine')
+    [System.Environment]::SetEnvironmentVariable('REPOS_PERSONAL', "$($global:DevDriveLetter):\Source\Repos\$($MyName -replace " ","")", 'Machine')
 
     # [System.Environment]::SetEnvironmentVariable('PACKAGES_ROOT', "$($global:DevDriveLetter):\Packages", 'Machine')
     # [System.Environment]::SetEnvironmentVariable('NPM_CONFIG_CACHE', "$($global:DevDriveLetter):\Packages\.npm", 'Machine')
@@ -177,7 +175,6 @@ Install-WinGetPackages
 Install-Fonts
 Install-PoshGit
 Install-TheFucker
-#Install-AzPowerShell
 Set-PowerShellProfile
 Set-EnvironmentVariables
 
