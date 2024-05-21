@@ -1,4 +1,5 @@
 $MyName = "Jeff Williams"
+$MyNameWithoutWhitespace = $($MyName -replace " ","")
 $MyEmail = "jeffwilliams824@gmail.com"
 $MyGitHubUser = "jwill824"
 $DevDriveLetter = $null
@@ -37,7 +38,7 @@ function Format-DevDrive() {
 function Get-Repository() {
     Write-Host 'Cloning dotfiles repository...'
 
-    $global:RepoRoot = "$($global:DevDriveLetter):\Source\Repos\$($MyName -replace " ","")\Dotfiles"
+    $global:RepoRoot = "$($global:DevDriveLetter):\Source\Repos\$MyNameWithoutWhitespace\Dotfiles"
 
     if (Test-Path -Path $global:RepoRoot) {
         Write-Host "Dotfiles repository already exists at $global:RepoRoot. Fetching latest instead..."
@@ -113,7 +114,7 @@ function Set-TerminalProfile() {
     Write-Host 'Setting up Terminal profile...'
 
     $NewProfile = Join-Path $global:RepoRoot '\files\Profiles\Hyper\.hyper.js'
-    $HyperDataDir = "C:\Users\$($MyName -replace " ","")\AppData\Roaming\Hyper"
+    $HyperDataDir = "C:\Users\$MyNameWithoutWhitespace\AppData\Roaming\Hyper"
 
     if (!(Test-Path -Path HyperDataDir)) {
         Copy-Item -Path $NewProfile -Destination $HyperDataDir
@@ -128,7 +129,7 @@ function Set-EnvironmentVariables() {
     [System.Environment]::SetEnvironmentVariable('DEVDRIVE', "$($global:DevDriveLetter):", 'Machine')
 
     [System.Environment]::SetEnvironmentVariable('REPOS_ROOT', "$($global:DevDriveLetter):\Source\Repos", 'Machine')
-    [System.Environment]::SetEnvironmentVariable('REPOS_PERSONAL', "$($global:DevDriveLetter):\Source\Repos\$($MyName -replace " ","")", 'Machine')
+    [System.Environment]::SetEnvironmentVariable('REPOS_PERSONAL', "$($global:DevDriveLetter):\Source\Repos\$MyNameWithoutWhitespace", 'Machine')
 
     Write-Host 'Done. System environment variables have been set.'
 }
