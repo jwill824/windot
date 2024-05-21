@@ -134,7 +134,7 @@ function Set-EnvironmentVariables() {
     Write-Host 'Done. System environment variables have been set.'
 }
 
-Write-Host "Starting installation of my dotfiles for $MyNameWithoutWhitespace..."
+Write-Host "Starting installation of my dotfiles for $MyName..."
 
 try {
     Initialize-Git
@@ -147,10 +147,11 @@ try {
     Set-PowerShellProfile
     Set-TerminalProfile
     Set-EnvironmentVariables
+
+    Write-Host 'Complete!! Dotfiles installed successfully.' -ForegroundColor Green
 }
 catch {
     Write-Host "An error occurred:"
+    Write-Host $_
     Write-Host $_.ScriptStackTrace
 }
-
-Write-Host 'Complete!! Dotfiles installed successfully.' -ForegroundColor Green
