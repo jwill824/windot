@@ -1,0 +1,38 @@
+{
+    "$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+    "CreationDate": "2024-03-27T00:00:00.000-00:00",
+    "Sources": [
+        {
+            "Packages": [
+                {
+                    "PackageIdentifier": "ManicTime.ManicTime"
+                },
+                {
+                    "PackageIdentifier": "Microsoft.Edge.Beta"
+                },
+                {
+                    "PackageIdentifier": "Microsoft.BingWallpaper"
+                },
+                {
+                    "PackageIdentifier": "PaulWoolcock.SyncOutlookandGooglecalendars"
+                },
+                {
+                    "PackageIdentifier": "SlackTechnologies.Slack"
+                },
+                {
+                    "PackageIdentifier": "Zoom.Zoom"
+                },
+                {
+                    "PackageIdentifier": "Zoom.ZoomOutlookPlugin"
+                }
+            ],
+            "SourceDetails": {
+                "Argument": "https://cdn.winget.microsoft.com/cache",
+                "Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+                "Name": "winget",
+                "Type": "Microsoft.PreIndexed.Package"
+            }
+        }
+    ],
+    "WinGetVersion": "1.7.10661"
+}

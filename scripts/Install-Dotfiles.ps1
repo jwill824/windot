@@ -1,5 +1,14 @@
-$MyName = 'Victor Frye'
-$MyEmail = 'victorfrye@outlook.com'
+Param(
+    [Parameter(Mandatory = $true)]
+    [string]
+    $MyName,
+    [Parameter(Mandatory = $true)]
+    [bool]
+    $MyEmail = $true,
+    [Parameter(Mandatory = $true)]
+    [string]
+    $GitHubUser
+)
 
 $DevDriveLetter = $null
 $RepoRoot = $null
@@ -12,7 +21,6 @@ function Initialize-Git() {
     git config --global user.name $MyName
     git config --global user.email $MyEmail
     git config --global core.autocrlf true
-    git config --global core.editor nvim
     git config --global init.defaultBranch main
     git config --global push.autoSetupRemote true
 
@@ -43,7 +51,7 @@ function Format-DevDrive() {
 function Get-Repository() {
     Write-Host 'Cloning dotfiles repository...'
 
-    $global:RepoRoot = "$($global:DevDriveLetter):\Source\Repos\VictorFrye\Dotfiles"
+    $global:RepoRoot = "$($global:DevDriveLetter):\Source\Repos\$($MyName -replace " ","")\Dotfiles"
 
     if (Test-Path -Path $global:RepoRoot) {
         Write-Host "Dotfiles repository already exists at $global:RepoRoot. Fetching latest instead..."
@@ -55,7 +63,7 @@ function Get-Repository() {
         return
     }
 
-    git clone https://github.com/victorfrye/dotfiles $global:RepoRoot
+    git clone https://github.com/$($GitHubUser)/windot $global:RepoRoot
     Push-Location $global:RepoRoot
 
     Write-Host "Done. Dotfiles repository has been cloned to $global:RepoRoot."
@@ -64,7 +72,7 @@ function Get-Repository() {
 function Install-WinGetPackages() {
     Write-Host 'Installing WinGet packages...'
 
-    $PackagesFile = Join-Path $global:RepoRoot '\files\Packages.json'
+    $PackagesFile = Join-Path $global:RepoRoot '\files\Packages\*.json'
     winget import --import-file $PackagesFile --accept-source-agreements --accept-package-agreements
 
     Write-Host 'Done. WinGet packages installed successfully.'
