@@ -10,7 +10,7 @@ function Initialize-Git() {
     winget install --exact --id Git.Git --source winget
 
     # Reload the session path
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+    # $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
 
     git config --global core.autocrlf true
     git config --global init.defaultBranch main
