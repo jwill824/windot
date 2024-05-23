@@ -10,15 +10,37 @@ function Initialize-Git() {
     winget install --exact --id Git.Git --source winget
 
     # Reload the session path
-    # $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
     git config --global core.autocrlf true
     git config --global init.defaultBranch main
     git config --global push.autoSetupRemote true
+    
     Write-Host 'Done. Git has been initialized.'
 }
 
-function Format-DevDrive() {
+function New-VHDDevDrive
+{
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Path,
+
+        [string]$Size = 5GB
+    )
+
+    Write-Host 'Creating VHD...'
+
+    if (!(Test-Path -Path "C:\Users\$MyNameWithoutWhitespace\DevDrives")) {
+        
+    }
+
+    New-VHD -Path $Path -Dynamic -SizeBytes $Size | Mount-VHD -Passthru | Initialize-Disk -Passthru | New-Partition -AssignDriveLetter -UseMaximumSize
+
+    Write-Host "Done. Development drive $DevDriveLetter has been initialized."
+}
+
+function Set-VHDDevDrive() {
     Write-Host 'Initializing development drive...'
 
     $Volumes = Get-Volume
@@ -34,7 +56,7 @@ function Format-DevDrive() {
     $PreferredDriveLetters = 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
     $global:DevDriveLetter = $PreferredDriveLetters | Where-Object { $Volumes.DriveLetter -notcontains $_ } | Select-Object -First 1
 
-    Format-Volume -DriveLetter $DevDriveLetter -DevDrive
+    Format-Volume -DriveLetter $DevDriveLetter -DevDrive -FileSystem ReFS -Confirm:$false -Force
 
     Write-Host "Done. Development drive $DevDriveLetter has been initialized."
 }
@@ -142,7 +164,8 @@ Write-Host "Starting installation of my dotfiles for $MyName..."
 
 try {
     Initialize-Git
-    Format-DevDrive
+    New-VHDDevDrive -Path "C:\Users\$MyNameWithoutWhitespace\DevDrives\Developer.vhdx" -Size 50GB
+    Set-VHDDevDrive
     Get-Repository
     Install-WinGetPackages
     Install-Fonts
